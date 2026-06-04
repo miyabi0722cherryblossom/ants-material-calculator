@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- lang="ja" : このページが日本語であることをブラウザに伝えます -->
+<html lang="ja">
+<head>
+  <!-- 文字コードの指定。日本語が文字化けしないために必要です -->
+  <meta charset="UTF-8" />
+
+  <!-- スマホ表示対応の「おまじない」。画面幅に合わせて拡大縮小してくれます -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ブラウザのタブに表示されるタイトル -->
+  <title>素材計算機 | ザ・アンツ攻略</title>
+
+  <!-- 見た目（デザイン）を読み込みます -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- 日本語が使える、丸みのある読みやすいフォントをGoogleから読み込みます -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <!-- ページ全体を中央にまとめる入れ物 -->
+  <div class="container">
+
+    <!-- ===== ヘッダー（タイトル部分） ===== -->
+    <header class="page-header">
+      <p class="eyebrow">ザ・アンツ攻略ツール</p>
+      <h1 class="title"><span class="ant">🐜</span> 素材計算機</h1>
+      <p class="lead">あと何日で目標の素材が貯まるか、ざっくり計算します。</p>
+    </header>
+
+    <!-- ===== 入力フォーム ===== -->
+    <!-- ※ formタグは使わず、ボタンのクリックで計算します（ページが勝手に再読み込みされないように） -->
+    <section class="card">
+      <h2 class="card-title">入力する</h2>
+
+      <!-- 必要素材 -->
+      <div class="field">
+        <label for="required">必要な素材の量</label>
+        <input
+          type="number"
+          id="required"
+          inputmode="numeric"
+          min="1"
+          placeholder="例：1000"
+        />
+        <p class="hint">目標として集めたい素材の合計</p>
+      </div>
+
+      <!-- 所持素材 -->
+      <div class="field">
+        <label for="owned">今持っている素材の量</label>
+        <input
+          type="number"
+          id="owned"
+          inputmode="numeric"
+          min="0"
+          placeholder="例：250"
+        />
+        <p class="hint">いま手元にある素材（0でもOK）</p>
+      </div>
+
+      <!-- 1日の獲得量 -->
+      <div class="field">
+        <label for="perday">1日に手に入る量</label>
+        <input
+          type="number"
+          id="perday"
+          inputmode="numeric"
+          min="1"
+          placeholder="例：100"
+        />
+        <p class="hint">1日あたり集められる素材の量</p>
+      </div>
+
+      <!-- 計算ボタン -->
+      <button id="calcButton" class="calc-button" type="button">
+        計算する
+      </button>
+
+      <!-- エラーメッセージを表示する場所（最初は空っぽ） -->
+      <p id="errorMessage" class="error-message" role="alert"></p>
+    </section>
+
+    <!-- ===== 計算結果 ===== -->
+    <!-- 最初は hidden で隠しておき、計算後に表示します -->
+    <section id="result" class="card result-card" hidden>
+      <h2 class="card-title">計算結果</h2>
+      <div id="resultBody" class="result-body">
+        <!-- ここに結果が入ります（script.jsが書き込みます） -->
+      </div>
+    </section>
+
+    <!-- ===== フッター ===== -->
+    <footer class="page-footer">
+      <p>ザ・アンツ攻略サイト</p>
+    </footer>
+
+  </div>
+
+  <!-- 計算の処理（動き）を読み込みます。bodyの一番下に置くのが基本です -->
+  <script src="script.js"></script>
+</body>
+</html>

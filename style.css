@@ -1,0 +1,261 @@
+/* =========================================================
+   素材計算機 スタイル（見た目）
+   テーマ：蟻塚と土をイメージした、温かみのあるアース系カラー
+   スマホ優先（モバイルファースト）で書いています
+   ========================================================= */
+
+/* ----- 色やサイズを1か所でまとめて管理する変数 -----
+   ここを書き換えれば、サイト全体の色が一気に変わります */
+:root {
+  --bg: #f4ead7;            /* 背景：砂のようなクリーム色 */
+  --bg-grad: #efe0c4;       /* 背景の薄いグラデーション用 */
+  --surface: #fffdf8;       /* カードの色：少し白い紙 */
+  --ink: #3a2a1a;           /* 文字：濃い茶色 */
+  --ink-soft: #7a6a55;      /* 補足文字：やわらかい茶色 */
+  --accent: #d97a1f;        /* アクセント：琥珀・はちみつ色 */
+  --accent-dark: #b35f12;   /* アクセントの濃い色（押した時など） */
+  --soil: #5c3d1e;          /* 深い土の色 */
+  --success: #4d7c2f;       /* 足りている時の緑（苔っぽい緑） */
+  --error: #c0432b;         /* エラーの赤（テラコッタ） */
+  --line: #e3d4ba;          /* 区切り線のうすい色 */
+  --radius: 16px;           /* 角の丸み */
+  --shadow: 0 10px 30px rgba(92, 61, 30, 0.12); /* やわらかい影 */
+}
+
+/* ----- 全要素の余白リセットと、サイズ計算の統一 ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* paddingを含めて幅を計算する（崩れにくくなる） */
+}
+
+/* ----- ページ全体の土台 ----- */
+body {
+  font-family: "Zen Kaku Gothic New", sans-serif; /* 本文の読みやすいフォント */
+  color: var(--ink);
+  /* 上から下へ、ほんのり色が変わる背景 */
+  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-grad) 100%);
+  min-height: 100vh;
+  line-height: 1.7;
+  padding: 24px 16px 48px;
+}
+
+/* ----- 中央寄せの入れ物。スマホでもPCでも見やすい幅に ----- */
+.container {
+  width: 100%;
+  max-width: 520px; /* これ以上は横に広がらない */
+  margin: 0 auto;   /* 左右中央寄せ */
+}
+
+/* =========================================================
+   ヘッダー
+   ========================================================= */
+.page-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em; /* 文字の間隔を少し広げて上品に */
+  color: var(--accent-dark);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-family: "Zen Maru Gothic", sans-serif; /* 見出しは丸ゴシックで親しみやすく */
+  font-size: 2rem;
+  color: var(--soil);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 蟻の絵文字をほんの少しだけ揺らすアニメーション（おまけの遊び） */
+.ant {
+  display: inline-block;
+  animation: wiggle 2.5s ease-in-out infinite;
+}
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-12deg); }
+  75%      { transform: rotate(12deg); }
+}
+
+.lead {
+  margin-top: 8px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* =========================================================
+   カード（白い箱）
+   ========================================================= */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 20px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.15rem;
+  color: var(--soil);
+  margin-bottom: 18px;
+  /* 見出しの左に琥珀色の小さな印を付ける */
+  padding-left: 14px;
+  border-left: 5px solid var(--accent);
+}
+
+/* =========================================================
+   入力フォーム
+   ========================================================= */
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/* 入力欄。スマホで押しやすいよう大きめに */
+.field input {
+  width: 100%;
+  font-size: 1.1rem;          /* スマホで自動ズームされないよう16px以上に */
+  font-family: inherit;
+  color: var(--ink);
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: #fffefb;
+  transition: border-color 0.2s ease; /* 色がふわっと変わる */
+}
+
+/* 入力欄を選んだ時に枠を琥珀色にして「ここに入力中」を分かりやすく */
+.field input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 5px;
+}
+
+/* =========================================================
+   計算ボタン
+   ========================================================= */
+.calc-button {
+  width: 100%;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.05s ease;
+}
+
+/* マウスを乗せた時・押した時の反応 */
+.calc-button:hover { background: var(--accent-dark); }
+.calc-button:active { transform: scale(0.98); } /* 少し沈む */
+
+/* =========================================================
+   エラーメッセージ
+   ========================================================= */
+.error-message {
+  color: var(--error);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 14px;
+  text-align: center;
+  /* 中身が空のときは表示しない */
+}
+.error-message:empty { display: none; }
+
+/* =========================================================
+   計算結果
+   ========================================================= */
+.result-card {
+  /* 結果が出た時にふわっと現れるアニメーション */
+  animation: fadeUp 0.4s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 結果の各行（項目名 ＋ 数値） */
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line); /* 点線で区切る */
+}
+.result-row:last-child { border-bottom: none; }
+
+.result-label {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.result-value {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--soil);
+}
+
+/* 特に目立たせたい数値（到達日数など）を琥珀色に */
+.result-value.highlight {
+  color: var(--accent-dark);
+}
+
+/* 「素材は足りています」の成功メッセージ */
+.success-message {
+  text-align: center;
+  padding: 10px 0;
+}
+.success-message .big {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--success);
+}
+.success-message .sub {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* =========================================================
+   フッター
+   ========================================================= */
+.page-footer {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  margin-top: 28px;
+}
+
+/* =========================================================
+   画面が広い時（PCなど）の微調整
+   ========================================================= */
+@media (min-width: 600px) {
+  .title { font-size: 2.4rem; }
+  .card { padding: 28px 26px; }
+}
