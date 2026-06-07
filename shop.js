@@ -24,7 +24,7 @@ const ITEMS = [
 
 /* ----- 状態管理 ----- */
 const quantities = {}; // { itemId: number }
-let budget = 0;
+let budget = Number(document.getElementById("budget").value) || 0;
 
 /* ----- 起動 ----- */
 document.getElementById("budget").addEventListener("input", onBudgetChange);
