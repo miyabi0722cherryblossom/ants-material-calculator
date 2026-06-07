@@ -9,17 +9,17 @@
    ※ 価格が「要確認」のものは実際のゲームで確認してから編集してください */
 const ITEMS = [
   // 必須購入（Must-Buy）
-  { id:  1, emoji: "🧪", name: "Enhancement Resin (×5,000)", price:  1000, category: "必須購入 ★" },
-  { id:  2, emoji: "🍯", name: "Exotic Nectar (×20)",        price:  3000, category: "必須購入 ★" },
-  { id:  3, emoji: "🥚", name: "Season Egg",                 price:  1500, category: "必須購入 ★" }, // 要確認（ガイドは"低コスト"のみ）
-  { id:  4, emoji: "🐚", name: "Exotic Shell",               price:  3750, category: "必須購入 ★" },
-  { id:  5, emoji: "🪲", name: "Orange Insect Egg",          price:  2500, category: "必須購入 ★" },
+  { id:  1, emoji: "🧪", name: "強化樹脂 ×5,000",            price:  1000, category: "必須購入 ★" },
+  { id:  2, emoji: "🍯", name: "異種花蜜 ×20",               price:  3000, category: "必須購入 ★" },
+  { id:  3, emoji: "🥚", name: "シーズンエッグ",             price:  1500, category: "必須購入 ★" }, // 要確認（ガイドは"低コスト"のみ）
+  { id:  4, emoji: "🐚", name: "異種の殻",                   price:  3750, category: "必須購入 ★" },
+  { id:  5, emoji: "🪲", name: "橙色の昆虫の卵",             price:  2500, category: "必須購入 ★" },
   // 優先購入（ボトルネックによる）
-  { id:  6, emoji: "🧬", name: "Advanced Mutation Material Chest", price: 10000, category: "優先購入" },
-  { id:  7, emoji: "🔬", name: "Bio-Essence (×4セット)",     price: 16000, category: "優先購入" },
-  { id:  8, emoji: "⚔️", name: "Soldier Reform Chest",       price:  5000, category: "優先購入" }, // 要確認
-  { id:  9, emoji: "🌙", name: "Moonlight Essence",          price: 25000, category: "優先購入" }, // 要確認（ガイドは"高コスト"のみ）
-  { id: 10, emoji: "🏺", name: "Treasure Clay",              price: 20000, category: "優先購入" },
+  { id:  6, emoji: "🧬", name: "上級変異素材チェスト",       price: 10000, category: "優先購入" },
+  { id:  7, emoji: "🔬", name: "バイオエッセンス ×4セット",  price: 16000, category: "優先購入" },
+  { id:  8, emoji: "⚔️", name: "兵士改革チェスト",           price:  5000, category: "優先購入" }, // 要確認
+  { id:  9, emoji: "🌙", name: "月光エッセンス",             price: 25000, category: "優先購入" }, // 要確認（ガイドは"高コスト"のみ）
+  { id: 10, emoji: "🏺", name: "宝の粘土",                   price: 20000, category: "優先購入" },
 ];
 
 /* ----- 状態管理 ----- */
