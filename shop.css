@@ -1,0 +1,293 @@
+/* =============================================================
+   シーズンショップシミュレーター 追加スタイル
+   style.css のデザイン変数を使いまわしています
+   ============================================================= */
+
+/* タイトルの改行を許可 */
+.title { line-height: 1.3; }
+
+/* ----- ページナビゲーション ----- */
+.page-nav {
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  display: inline-block;
+  color: var(--accent-dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 2px solid var(--accent-dark);
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background: var(--accent-dark);
+  color: #fff;
+}
+
+/* ----- アイテム一覧のヒント ----- */
+.shop-hint {
+  margin-bottom: 16px;
+}
+
+/* ----- カテゴリ区切り ----- */
+.item-category + .item-category {
+  margin-top: 18px;
+}
+
+.category-label {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  background: #f4ead7;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* ----- 各アイテム行 ----- */
+.item-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.item-row:last-child { border-bottom: none; }
+
+.item-info {
+  flex: 1 1 140px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.item-emoji {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.item-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* アイテム右側（価格・購入可能数・ボタン） */
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 価格入力フィールド */
+.price-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.price-input {
+  width: 72px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--ink);
+  padding: 6px 8px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: #fffefb;
+  text-align: right;
+  transition: border-color 0.2s ease;
+}
+.price-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.price-unit {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* 購入可能数 */
+.item-affordable {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 700;
+  white-space: nowrap;
+  min-width: 64px;
+}
+
+/* カートへ追加ボタン */
+.add-btn {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.05s ease;
+}
+.add-btn:hover { background: var(--accent-dark); }
+.add-btn:active { transform: scale(0.97); }
+
+/* =============================================================
+   カート
+   ============================================================= */
+
+/* カート内の各行 */
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line);
+  flex-wrap: wrap;
+}
+.cart-row:last-of-type { border-bottom: none; }
+
+.cart-item-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cart-item-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.cart-item-price {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.cart-item-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cart-subtotal {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--soil);
+  white-space: nowrap;
+}
+
+/* 数量変更ボタン */
+.qty-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--soil);
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+  padding: 0;
+}
+.qty-btn:hover { background: var(--line); }
+
+.qty-num {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* ----- カートのサマリー ----- */
+.cart-summary {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 2px solid var(--line);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+}
+
+.summary-label {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.summary-total {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--soil);
+}
+.summary-total.over { color: var(--error); }
+
+.remain-amount {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--success);
+}
+
+.over-amount {
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--error);
+}
+
+/* 予算オーバー警告 */
+.budget-warning {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: #fdecea;
+  border: 2px solid var(--error);
+  border-radius: 10px;
+  color: var(--error);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  animation: fadeUp 0.3s ease;
+}
+
+/* =============================================================
+   PC幅
+   ============================================================= */
+@media (min-width: 600px) {
+  .item-row { flex-wrap: nowrap; }
+  .item-info { flex: 1 1 auto; }
+  .item-actions { flex-wrap: nowrap; }
+}
