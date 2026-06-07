@@ -5,28 +5,21 @@
    - 予算超過で警告
    ============================================================= */
 
+/* 価格の出典：theskyalliance.com/ants/season-store/
+   ※ 価格が「要確認」のものは実際のゲームで確認してから編集してください */
 const ITEMS = [
-  // スピードアップ
-  { id:  1, emoji: "⚡", name: "建設高速化 1分",   price:  10, category: "スピードアップ" },
-  { id:  2, emoji: "⚡", name: "建設高速化 10分",  price:  45, category: "スピードアップ" },
-  { id:  3, emoji: "⚡", name: "建設高速化 1時間", price: 200, category: "スピードアップ" },
-  { id:  4, emoji: "⚡", name: "建設高速化 8時間", price: 1200, category: "スピードアップ" },
-  { id:  5, emoji: "🔬", name: "研究高速化 1分",   price:  10, category: "スピードアップ" },
-  { id:  6, emoji: "🔬", name: "研究高速化 10分",  price:  45, category: "スピードアップ" },
-  { id:  7, emoji: "🔬", name: "研究高速化 1時間", price: 200, category: "スピードアップ" },
-  { id:  8, emoji: "💊", name: "治療高速化 1分",   price:  10, category: "スピードアップ" },
-  { id:  9, emoji: "💊", name: "治療高速化 10分",  price:  45, category: "スピードアップ" },
-  { id: 10, emoji: "⚔️", name: "訓練高速化 1分",   price:  10, category: "スピードアップ" },
-  { id: 11, emoji: "⚔️", name: "訓練高速化 10分",  price:  45, category: "スピードアップ" },
-  // 素材
-  { id: 12, emoji: "🍚", name: "砂糖 ×50,000",       price: 100, category: "素材" },
-  { id: 13, emoji: "🥩", name: "タンパク質 ×50,000",  price: 100, category: "素材" },
-  { id: 14, emoji: "🌿", name: "植物繊維 ×50,000",    price: 100, category: "素材" },
-  { id: 15, emoji: "🟤", name: "土 ×50,000",          price:  80, category: "素材" },
-  // アイテム
-  { id: 16, emoji: "📚", name: "女王の書物",      price: 500, category: "アイテム" },
-  { id: 17, emoji: "💎", name: "アントジェム ×5",  price: 200, category: "アイテム" },
-  { id: 18, emoji: "🎁", name: "シーズン宝箱",    price: 300, category: "アイテム" },
+  // 必須購入（Must-Buy）
+  { id:  1, emoji: "🧪", name: "Enhancement Resin (×5,000)", price:  1000, category: "必須購入 ★" },
+  { id:  2, emoji: "🍯", name: "Exotic Nectar (×20)",        price:  3000, category: "必須購入 ★" },
+  { id:  3, emoji: "🥚", name: "Season Egg",                 price:  1500, category: "必須購入 ★" }, // 要確認（ガイドは"低コスト"のみ）
+  { id:  4, emoji: "🐚", name: "Exotic Shell",               price:  3750, category: "必須購入 ★" },
+  { id:  5, emoji: "🪲", name: "Orange Insect Egg",          price:  2500, category: "必須購入 ★" },
+  // 優先購入（ボトルネックによる）
+  { id:  6, emoji: "🧬", name: "Advanced Mutation Material Chest", price: 10000, category: "優先購入" },
+  { id:  7, emoji: "🔬", name: "Bio-Essence (×4セット)",     price: 16000, category: "優先購入" },
+  { id:  8, emoji: "⚔️", name: "Soldier Reform Chest",       price:  5000, category: "優先購入" }, // 要確認
+  { id:  9, emoji: "🌙", name: "Moonlight Essence",          price: 25000, category: "優先購入" }, // 要確認（ガイドは"高コスト"のみ）
+  { id: 10, emoji: "🏺", name: "Treasure Clay",              price: 20000, category: "優先購入" },
 ];
 
 /* ----- 状態管理 ----- */
