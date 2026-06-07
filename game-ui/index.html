@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>シーズン果物ショップ | ザ・アンツ</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- ヘッダー -->
+    <header class="shop-header">
+      <div class="header-top">
+        <a href="../shop.html" class="back-link">← 通常版へ</a>
+      </div>
+      <div class="fruits-row">
+        <span class="fruits-label">使用可能なシーズン果物</span>
+        <div class="fruits-input-wrap">
+          <input type="number" id="fruitsInput" value="29050" min="0" />
+          <span class="fruit-icon">🍊</span>
+        </div>
+      </div>
+      <div class="spent-row">
+        <span>使用済み：<strong id="spentTotal">0</strong> 🍊</span>
+        <span>残り：<strong id="fruitsLeft">29,050</strong> 🍊</span>
+      </div>
+    </header>
+
+    <!-- アイテムグリッド -->
+    <main class="shop-grid" id="shopGrid"></main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
