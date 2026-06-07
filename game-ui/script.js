@@ -2,7 +2,6 @@
    シーズン果物ショップ シミュレーター（ゲームUIスタイル）
    ============================================================= */
 
-/* スクリーンショットの実際の価格・数量・交換回数を使用 */
 const ITEMS = [
   { id: 1, emoji: "🔮", name: "バイオエッセンス",         qty:   1, maxEx: 4,  price:  4000 },
   { id: 2, emoji: "🧬", name: "上級変異素材チェスト",     qty:  20, maxEx: 1,  price: 10000 },
@@ -57,32 +56,43 @@ function createCard(item) {
       <p class="exchanges" id="ex-${item.id}">
         残り交換回数：<span class="ex-count">${item.maxEx}</span>
       </p>
-      <button class="buy-btn" id="btn-${item.id}" type="button">
-        <span class="btn-fruit">🍊</span>
-        <span class="btn-price">${item.price.toLocaleString("ja-JP")}</span>
-      </button>
+      <div class="price-row">
+        <span class="price-fruit">🍊</span>
+        <span class="price-num">${item.price.toLocaleString("ja-JP")}</span>
+      </div>
+      <div class="qty-controls">
+        <button class="qty-btn minus-btn" id="minus-${item.id}" type="button">－</button>
+        <span class="qty-count" id="count-${item.id}">0</span>
+        <button class="qty-btn plus-btn"  id="plus-${item.id}"  type="button">＋</button>
+      </div>
     </div>
   `;
 
-  card.querySelector(`#btn-${item.id}`).addEventListener("click", () => buyItem(item.id));
+  card.querySelector(`#minus-${item.id}`).addEventListener("click", () => decrement(item.id));
+  card.querySelector(`#plus-${item.id}`).addEventListener("click",  () => increment(item.id));
   return card;
 }
 
 /* =====================================================
-   購入処理
+   増減処理
    ===================================================== */
-function buyItem(id) {
+function increment(id) {
   const item = ITEMS.find(i => i.id === id);
   if (!item) return;
-
   const bought = purchased[id] || 0;
-  const remaining = item.maxEx - bought;
-  const spent = calcSpent();
-  const left = totalFruits - spent;
-
-  if (remaining <= 0 || left < item.price) return;
-
+  if (bought >= item.maxEx) return;
+  if (totalFruits - calcSpent() < item.price) return;
   purchased[id] = bought + 1;
+  updateHeader();
+  updateCard(item);
+}
+
+function decrement(id) {
+  const item = ITEMS.find(i => i.id === id);
+  if (!item) return;
+  if (!purchased[id]) return;
+  purchased[id]--;
+  if (purchased[id] === 0) delete purchased[id];
   updateHeader();
   updateCard(item);
 }
@@ -94,19 +104,22 @@ function updateCard(item) {
   const card = document.querySelector(`.item-card[data-id="${item.id}"]`);
   if (!card) return;
 
-  const bought   = purchased[item.id] || 0;
+  const bought    = purchased[item.id] || 0;
   const remaining = item.maxEx - bought;
-  const spent    = calcSpent();
-  const left     = totalFruits - spent;
+  const left      = totalFruits - calcSpent();
 
-  /* 残り交換回数の更新 */
+  /* 残り交換回数 */
   const exEl = document.getElementById(`ex-${item.id}`);
   exEl.innerHTML = `残り交換回数：<span class="ex-count">${remaining}</span>`;
-  exEl.className = "exchanges" + (remaining === 1 && remaining > 0 ? " low" : "");
+  exEl.className = "exchanges" + (remaining === 1 ? " low" : "");
 
-  /* ボタンの有効・無効 */
-  const btn = document.getElementById(`btn-${item.id}`);
-  btn.disabled = remaining <= 0 || left < item.price;
+  /* 購入数カウント */
+  document.getElementById(`count-${item.id}`).textContent = bought;
+
+  /* ＋ボタン：残り回数0 or 果物不足で無効 */
+  document.getElementById(`plus-${item.id}`).disabled  = remaining <= 0 || left < item.price;
+  /* －ボタン：0個なら無効 */
+  document.getElementById(`minus-${item.id}`).disabled = bought <= 0;
 
   /* 売り切れオーバーレイ */
   card.classList.toggle("sold-out", remaining <= 0);
@@ -117,15 +130,13 @@ function updateAllCards() {
 }
 
 /* =====================================================
-   ヘッダーの使用済み・残り更新
+   ヘッダー更新
    ===================================================== */
 function updateHeader() {
   const spent = calcSpent();
   const left  = totalFruits - spent;
-
   document.getElementById("spentTotal").textContent = spent.toLocaleString("ja-JP");
   document.getElementById("fruitsLeft").textContent = Math.max(0, left).toLocaleString("ja-JP");
-
   updateAllCards();
 }
 

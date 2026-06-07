@@ -187,40 +187,72 @@ body {
   font-weight: 700;
 }
 
-/* 購入ボタン */
-.buy-btn {
+/* 価格ラベル */
+.price-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  width: 100%;
+  gap: 3px;
+  padding: 4px 0 2px;
+  border-top: 1px solid rgba(139, 101, 16, 0.4);
+}
+
+.price-fruit { font-size: 0.85rem; }
+
+.price-num {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--btn-text);
+  letter-spacing: 0.02em;
+}
+
+/* ＋/－ コントロール */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
   background: linear-gradient(180deg, #9a6510 0%, #5a3a08 100%);
   border: 1px solid var(--btn-border);
   border-radius: 5px;
   color: var(--btn-text);
   font-family: inherit;
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 700;
-  padding: 6px 4px;
   cursor: pointer;
-  transition: background 0.15s, transform 0.08s;
-  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.12s, transform 0.08s;
+  line-height: 1;
+  flex-shrink: 0;
 }
-.buy-btn:hover:not(:disabled) {
+.qty-btn:hover:not(:disabled) {
   background: linear-gradient(180deg, #c07e14 0%, #7a4e08 100%);
 }
-.buy-btn:active:not(:disabled) {
-  transform: scale(0.96);
-}
-.buy-btn:disabled {
+.qty-btn:active:not(:disabled) { transform: scale(0.92); }
+.qty-btn:disabled {
   background: var(--btn-disabled);
   border-color: #3a2810;
   color: var(--text-dim);
   cursor: not-allowed;
 }
 
-.btn-fruit { font-size: 0.9rem; }
-.btn-price { letter-spacing: 0.02em; }
+.qty-count {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--text);
+  min-width: 20px;
+  text-align: center;
+}
 
 /* 売り切れオーバーレイ */
 .item-card.sold-out::after {
