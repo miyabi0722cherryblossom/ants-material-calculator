@@ -264,8 +264,8 @@ body {
   text-align: center;
 }
 
-/* 売り切れオーバーレイ */
-.item-card.sold-out::after {
+/* 売り切れオーバーレイ：画像エリアだけに適用（ボタンは暗くしない） */
+.item-card.sold-out .card-image::after {
   content: "交換済";
   position: absolute;
   inset: 0;
@@ -273,10 +273,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 900;
-  color: var(--text-dim);
-  border-radius: 6px;
+  color: var(--text-muted);
   pointer-events: none;
 }
 
