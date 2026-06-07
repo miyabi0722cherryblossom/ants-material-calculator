@@ -1,13 +1,10 @@
 /* =============================================================
    シーズンショップシミュレーター
-   機能：
-   - 所持シーズンポイントを入力
-   - アイテムをカートに入れる
-   - 各アイテムの購入可能数を表示
-   - 合計がポイントを超えたら警告
+   - ＋/－ボタンで各アイテムの数量を調整
+   - 合計・残りポイントを画面下部に常時表示
+   - 予算超過で警告
    ============================================================= */
 
-/* ----- デフォルトアイテム一覧 ----- */
 const ITEMS = [
   // スピードアップ
   { id:  1, emoji: "⚡", name: "建設高速化 1分",   price:  10, category: "スピードアップ" },
@@ -22,34 +19,36 @@ const ITEMS = [
   { id: 10, emoji: "⚔️", name: "訓練高速化 1分",   price:  10, category: "スピードアップ" },
   { id: 11, emoji: "⚔️", name: "訓練高速化 10分",  price:  45, category: "スピードアップ" },
   // 素材
-  { id: 12, emoji: "🍚", name: "砂糖 ×50,000",      price: 100, category: "素材" },
-  { id: 13, emoji: "🥩", name: "タンパク質 ×50,000", price: 100, category: "素材" },
-  { id: 14, emoji: "🌿", name: "植物繊維 ×50,000",   price: 100, category: "素材" },
-  { id: 15, emoji: "🟤", name: "土 ×50,000",         price:  80, category: "素材" },
+  { id: 12, emoji: "🍚", name: "砂糖 ×50,000",       price: 100, category: "素材" },
+  { id: 13, emoji: "🥩", name: "タンパク質 ×50,000",  price: 100, category: "素材" },
+  { id: 14, emoji: "🌿", name: "植物繊維 ×50,000",    price: 100, category: "素材" },
+  { id: 15, emoji: "🟤", name: "土 ×50,000",          price:  80, category: "素材" },
   // アイテム
-  { id: 16, emoji: "📚", name: "女王の書物",     price: 500, category: "アイテム" },
-  { id: 17, emoji: "💎", name: "アントジェム ×5", price: 200, category: "アイテム" },
-  { id: 18, emoji: "🎁", name: "シーズン宝箱",   price: 300, category: "アイテム" },
+  { id: 16, emoji: "📚", name: "女王の書物",      price: 500, category: "アイテム" },
+  { id: 17, emoji: "💎", name: "アントジェム ×5",  price: 200, category: "アイテム" },
+  { id: 18, emoji: "🎁", name: "シーズン宝箱",    price: 300, category: "アイテム" },
 ];
 
 /* ----- 状態管理 ----- */
+const quantities = {}; // { itemId: number }
 let budget = 0;
-const cart = {}; // { itemId: quantity }
 
-/* ----- 起動時の処理 ----- */
+/* ----- 起動 ----- */
 document.getElementById("budget").addEventListener("input", onBudgetChange);
 renderItems();
+updateSummary();
 
-/* ポイント入力が変わったとき */
+/* =====================================================
+   予算入力
+   ===================================================== */
 function onBudgetChange() {
   budget = Math.max(0, Number(document.getElementById("budget").value) || 0);
-  updateAffordable();
-  renderCart();
+  updateSummary();
 }
 
-/* =============================================================
+/* =====================================================
    アイテム一覧の描画
-   ============================================================= */
+   ===================================================== */
 function renderItems() {
   const categories = [...new Set(ITEMS.map(i => i.category))];
   const container = document.getElementById("itemList");
@@ -79,14 +78,11 @@ function createItemRow(item) {
   /* 左：絵文字＋名前 */
   const infoDiv = document.createElement("div");
   infoDiv.className = "item-info";
-  infoDiv.innerHTML = `
-    <span class="item-emoji">${item.emoji}</span>
-    <span class="item-name">${item.name}</span>
-  `;
+  infoDiv.innerHTML = `<span class="item-emoji">${item.emoji}</span><span class="item-name">${item.name}</span>`;
 
-  /* 右：価格・購入可能数・ボタン */
-  const actionsDiv = document.createElement("div");
-  actionsDiv.className = "item-actions";
+  /* 右：コントロール群 */
+  const controls = document.createElement("div");
+  controls.className = "item-controls";
 
   /* 価格入力 */
   const priceWrap = document.createElement("div");
@@ -101,8 +97,8 @@ function createItemRow(item) {
   priceInput.addEventListener("change", () => {
     item.price = Math.max(1, Number(priceInput.value) || 1);
     priceInput.value = item.price;
-    updateAffordable();
-    renderCart();
+    refreshSubtotal(item, subtotalEl);
+    updateSummary();
   });
 
   const ptLabel = document.createElement("span");
@@ -112,131 +108,94 @@ function createItemRow(item) {
   priceWrap.appendChild(priceInput);
   priceWrap.appendChild(ptLabel);
 
-  /* 購入可能数 */
-  const affordable = document.createElement("span");
-  affordable.className = "item-affordable";
-  affordable.id = `affordable-${item.id}`;
+  /* ＋/－コントロール */
+  const qtyControls = document.createElement("div");
+  qtyControls.className = "qty-controls";
 
-  /* カートへボタン */
-  const addBtn = document.createElement("button");
-  addBtn.className = "add-btn";
-  addBtn.type = "button";
-  addBtn.textContent = "カートへ";
-  addBtn.addEventListener("click", () => addToCart(item.id));
+  const minusBtn = document.createElement("button");
+  minusBtn.className = "qty-btn minus-btn";
+  minusBtn.type = "button";
+  minusBtn.textContent = "−";
+  minusBtn.setAttribute("aria-label", "1個減らす");
 
-  actionsDiv.appendChild(priceWrap);
-  actionsDiv.appendChild(affordable);
-  actionsDiv.appendChild(addBtn);
+  const qtyNum = document.createElement("span");
+  qtyNum.className = "qty-num";
+  qtyNum.textContent = "0";
+
+  const plusBtn = document.createElement("button");
+  plusBtn.className = "qty-btn plus-btn";
+  plusBtn.type = "button";
+  plusBtn.textContent = "＋";
+  plusBtn.setAttribute("aria-label", "1個増やす");
+
+  /* 小計表示 */
+  const subtotalEl = document.createElement("span");
+  subtotalEl.className = "item-subtotal";
+  subtotalEl.textContent = "0 pt";
+
+  /* イベント */
+  plusBtn.addEventListener("click", () => {
+    quantities[item.id] = (quantities[item.id] || 0) + 1;
+    qtyNum.textContent = quantities[item.id];
+    refreshSubtotal(item, subtotalEl);
+    updateSummary();
+  });
+
+  minusBtn.addEventListener("click", () => {
+    if (!quantities[item.id]) return;
+    quantities[item.id]--;
+    if (quantities[item.id] === 0) delete quantities[item.id];
+    qtyNum.textContent = quantities[item.id] || 0;
+    refreshSubtotal(item, subtotalEl);
+    updateSummary();
+  });
+
+  qtyControls.appendChild(minusBtn);
+  qtyControls.appendChild(qtyNum);
+  qtyControls.appendChild(plusBtn);
+
+  controls.appendChild(priceWrap);
+  controls.appendChild(qtyControls);
+  controls.appendChild(subtotalEl);
 
   row.appendChild(infoDiv);
-  row.appendChild(actionsDiv);
+  row.appendChild(controls);
   return row;
 }
 
-/* 購入可能数の表示を更新 */
-function updateAffordable() {
-  ITEMS.forEach(item => {
-    const el = document.getElementById(`affordable-${item.id}`);
-    if (!el) return;
-    if (budget > 0) {
-      const count = Math.floor(budget / item.price);
-      el.textContent = `${count.toLocaleString("ja-JP")}個まで`;
-    } else {
-      el.textContent = "";
-    }
-  });
+/* 小計の表示を更新 */
+function refreshSubtotal(item, el) {
+  const qty = quantities[item.id] || 0;
+  const subtotal = item.price * qty;
+  el.textContent = subtotal.toLocaleString("ja-JP") + " pt";
+  el.classList.toggle("active", qty > 0);
 }
 
-/* =============================================================
-   カート操作
-   ============================================================= */
-function addToCart(itemId) {
-  cart[itemId] = (cart[itemId] || 0) + 1;
-  renderCart();
-}
-
-function removeOneFromCart(itemId) {
-  if (!cart[itemId]) return;
-  if (cart[itemId] > 1) {
-    cart[itemId]--;
-  } else {
-    delete cart[itemId];
-  }
-  renderCart();
-}
-
-/* =============================================================
-   カートの描画
-   ============================================================= */
-function renderCart() {
-  const cartSection = document.getElementById("cartSection");
-  const itemIds = Object.keys(cart).map(Number);
-
-  if (itemIds.length === 0) {
-    cartSection.hidden = true;
-    return;
-  }
-
-  cartSection.hidden = false;
-
-  /* カート内アイテムの描画 */
-  const cartItemsEl = document.getElementById("cartItems");
-  cartItemsEl.innerHTML = "";
-  let total = 0;
-
-  itemIds.forEach(id => {
-    const item = ITEMS.find(i => i.id === id);
-    if (!item) return;
-
-    const qty = cart[id];
-    const subtotal = item.price * qty;
-    total += subtotal;
-
-    const row = document.createElement("div");
-    row.className = "cart-row";
-    row.innerHTML = `
-      <div class="cart-item-info">
-        <span class="cart-item-name">${item.emoji} ${item.name}</span>
-        <span class="cart-item-price">${item.price.toLocaleString("ja-JP")} pt × ${qty}個</span>
-      </div>
-      <div class="cart-item-right">
-        <span class="cart-subtotal">${subtotal.toLocaleString("ja-JP")} pt</span>
-        <div class="qty-buttons">
-          <button class="qty-btn remove-btn" type="button" aria-label="1個減らす">−</button>
-          <span class="qty-num">${qty}</span>
-          <button class="qty-btn add-btn-sm" type="button" aria-label="1個増やす">＋</button>
-        </div>
-      </div>
-    `;
-
-    row.querySelector(".remove-btn").addEventListener("click", () => removeOneFromCart(id));
-    row.querySelector(".add-btn-sm").addEventListener("click", () => addToCart(id));
-    cartItemsEl.appendChild(row);
-  });
-
-  /* サマリーの描画 */
+/* =====================================================
+   合計バーの更新（常時表示）
+   ===================================================== */
+function updateSummary() {
+  const total = ITEMS.reduce((sum, item) => sum + item.price * (quantities[item.id] || 0), 0);
   const remaining = budget - total;
   const isOver = budget > 0 && remaining < 0;
-  const summaryEl = document.getElementById("cartSummary");
 
-  let summaryHTML = `
-    <div class="summary-row">
-      <span class="summary-label">合計</span>
-      <span class="summary-total ${isOver ? "over" : ""}">${total.toLocaleString("ja-JP")} pt</span>
-    </div>
-  `;
+  /* 合計 */
+  const totalEl = document.getElementById("summaryTotal");
+  totalEl.textContent = total.toLocaleString("ja-JP") + " pt";
+  totalEl.className = "summary-bar-value" + (isOver ? " over" : "");
 
+  /* 残り／超過 */
+  const remainCol = document.getElementById("summaryRemainCol");
   if (budget > 0) {
-    summaryHTML += `
-      <div class="summary-row">
-        <span class="summary-label">${isOver ? "超過" : "残りポイント"}</span>
-        <span class="${isOver ? "over-amount" : "remain-amount"}">${Math.abs(remaining).toLocaleString("ja-JP")} pt</span>
-      </div>
-    `;
-    if (isOver) {
-      summaryHTML += `<p class="budget-warning">⚠️ 予算を超えています！</p>`;
-    }
+    remainCol.hidden = false;
+    document.getElementById("summaryRemainLabel").textContent = isOver ? "超過" : "残り";
+    const remainEl = document.getElementById("summaryRemain");
+    remainEl.textContent = Math.abs(remaining).toLocaleString("ja-JP") + " pt";
+    remainEl.className = "summary-bar-value " + (isOver ? "over" : "remain");
+  } else {
+    remainCol.hidden = true;
   }
 
-  summaryEl.innerHTML = summaryHTML;
+  /* 警告 */
+  document.getElementById("overWarning").hidden = !isOver;
 }

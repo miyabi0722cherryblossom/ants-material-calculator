@@ -3,7 +3,6 @@
    style.css のデザイン変数を使いまわしています
    ============================================================= */
 
-/* タイトルの改行を許可 */
 .title { line-height: 1.3; }
 
 /* ----- ページナビゲーション ----- */
@@ -22,13 +21,11 @@
   border-radius: 8px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-
 .nav-link:hover {
   background: var(--accent-dark);
   color: #fff;
 }
 
-/* ----- アイテム一覧のヒント ----- */
 .shop-hint {
   margin-bottom: 16px;
 }
@@ -54,14 +51,15 @@
 /* ----- 各アイテム行 ----- */
 .item-row {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 10px 0;
   border-bottom: 1px dashed var(--line);
+  flex-wrap: wrap;
 }
 .item-row:last-child { border-bottom: none; }
 
+/* 左：絵文字＋名前 */
 .item-info {
   flex: 1 1 140px;
   display: flex;
@@ -70,28 +68,22 @@
   min-width: 0;
 }
 
-.item-emoji {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
+.item-emoji { font-size: 1.2rem; flex-shrink: 0; }
 
 .item-name {
   font-size: 0.9rem;
   font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* アイテム右側（価格・購入可能数・ボタン） */
-.item-actions {
+/* 右：価格・数量・小計 */
+.item-controls {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
-/* 価格入力フィールド */
+/* 価格入力 */
 .price-wrap {
   display: flex;
   align-items: center;
@@ -99,7 +91,7 @@
 }
 
 .price-input {
-  width: 72px;
+  width: 68px;
   font-size: 0.95rem;
   font-family: inherit;
   color: var(--ink);
@@ -120,167 +112,136 @@
   color: var(--ink-soft);
 }
 
-/* 購入可能数 */
-.item-affordable {
-  font-size: 0.8rem;
-  color: var(--accent);
-  font-weight: 700;
-  white-space: nowrap;
-  min-width: 64px;
-}
-
-/* カートへ追加ボタン */
-.add-btn {
-  font-family: "Zen Maru Gothic", sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--accent);
-  border: none;
-  border-radius: 8px;
-  padding: 7px 12px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s ease, transform 0.05s ease;
-}
-.add-btn:hover { background: var(--accent-dark); }
-.add-btn:active { transform: scale(0.97); }
-
-/* =============================================================
-   カート
-   ============================================================= */
-
-/* カート内の各行 */
-.cart-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 0;
-  border-bottom: 1px dashed var(--line);
-  flex-wrap: wrap;
-}
-.cart-row:last-of-type { border-bottom: none; }
-
-.cart-item-info {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.cart-item-name {
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.cart-item-price {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  margin-top: 2px;
-}
-
-.cart-item-right {
+/* ＋／－ボタンと数量 */
+.qty-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.cart-subtotal {
-  font-family: "Zen Maru Gothic", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--soil);
-  white-space: nowrap;
-}
-
-/* 数量変更ボタン */
-.qty-buttons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .qty-btn {
-  width: 28px;
-  height: 28px;
-  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  font-size: 1.1rem;
   font-family: inherit;
+  font-weight: 700;
   color: var(--soil);
   background: var(--bg);
   border: 2px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   line-height: 1;
   padding: 0;
+  user-select: none;
 }
-.qty-btn:hover { background: var(--line); }
+.qty-btn:hover { background: var(--line); border-color: var(--ink-soft); }
+.qty-btn:active { transform: scale(0.93); }
+
+.qty-btn.plus-btn {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.qty-btn.plus-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 .qty-num {
   font-family: "Zen Maru Gothic", sans-serif;
   font-weight: 700;
-  min-width: 20px;
+  font-size: 1.05rem;
+  min-width: 24px;
   text-align: center;
-  font-size: 1rem;
-}
-
-/* ----- カートのサマリー ----- */
-.cart-summary {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 2px solid var(--line);
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 6px 0;
-}
-
-.summary-label {
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-}
-
-.summary-total {
-  font-family: "Zen Maru Gothic", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
   color: var(--soil);
 }
-.summary-total.over { color: var(--error); }
 
-.remain-amount {
+/* 小計 */
+.item-subtotal {
   font-family: "Zen Maru Gothic", sans-serif;
-  font-size: 1.15rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--success);
+  color: var(--ink-soft);
+  min-width: 60px;
+  text-align: right;
+  white-space: nowrap;
+}
+.item-subtotal.active {
+  color: var(--accent-dark);
 }
 
-.over-amount {
+/* =============================================================
+   常時表示の合計バー（画面下部に固定）
+   ============================================================= */
+.summary-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--soil);
+  color: #fff;
+  padding: 12px 16px;
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(92, 61, 30, 0.25);
+}
+
+.summary-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.summary-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.summary-bar-label {
+  font-size: 0.72rem;
+  opacity: 0.75;
+  letter-spacing: 0.08em;
+}
+
+.summary-bar-value {
   font-family: "Zen Maru Gothic", sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--error);
+  line-height: 1.2;
+}
+
+.summary-bar-value.over { color: #ff8a80; }
+.summary-bar-value.remain { color: #a5d6a7; }
+
+.summary-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.25);
+  margin: 0 16px;
+  flex-shrink: 0;
 }
 
 /* 予算オーバー警告 */
 .budget-warning {
-  margin-top: 12px;
-  padding: 10px 14px;
-  background: #fdecea;
-  border: 2px solid var(--error);
-  border-radius: 10px;
-  color: var(--error);
-  font-weight: 700;
-  font-size: 0.95rem;
+  margin-top: 8px;
   text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ff8a80;
   animation: fadeUp 0.3s ease;
+}
+
+/* 合計バーの高さ分だけ下に余白（コンテンツが隠れないように） */
+.summary-bar-spacer {
+  height: 80px;
 }
 
 /* =============================================================
@@ -289,5 +250,5 @@
 @media (min-width: 600px) {
   .item-row { flex-wrap: nowrap; }
   .item-info { flex: 1 1 auto; }
-  .item-actions { flex-wrap: nowrap; }
+  .summary-bar-value { font-size: 1.4rem; }
 }
