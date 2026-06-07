@@ -3,7 +3,7 @@
    ============================================================= */
 
 const ITEMS = [
-  { id: 1, emoji: "🔮", name: "バイオエッセンス",         qty:   1, maxEx: 4,  price:  4000 },
+  { id: 1, image: "images/item-essence-of-life.png", name: "生命のエッセンス", qty: 1, maxEx: 4, price: 4000 },
   { id: 2, emoji: "🧬", name: "上級変異素材チェスト",     qty:  20, maxEx: 1,  price: 10000 },
   { id: 3, emoji: "🐚", name: "異種の殻",                 qty: 100, maxEx: 1,  price: 10000 },
   { id: 4, emoji: "🥚", name: "橙色の昆虫の卵",           qty: 200, maxEx: 5,  price:  2000 },
@@ -46,10 +46,16 @@ function createCard(item) {
   card.className = "item-card";
   card.dataset.id = item.id;
 
+  // 画像アイテムは <img> で表示（ゲーム画像内に数量が含まれるため自前バッジは出さない）
+  // 絵文字アイテムは絵文字＋数量バッジ
+  const visual = item.image
+    ? `<img class="item-img" src="${item.image}" alt="${item.name}" />`
+    : `<span class="item-emoji">${item.emoji}</span>
+       <span class="qty-badge">×${item.qty.toLocaleString("ja-JP")}</span>`;
+
   card.innerHTML = `
     <div class="card-image">
-      <span class="item-emoji">${item.emoji}</span>
-      <span class="qty-badge">×${item.qty.toLocaleString("ja-JP")}</span>
+      ${visual}
     </div>
     <div class="card-body">
       <p class="item-name">${item.name}</p>
