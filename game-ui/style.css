@@ -46,13 +46,13 @@ body {
   margin-bottom: 8px;
 }
 
-.back-link {
-  color: var(--border-light);
-  font-size: 0.8rem;
-  text-decoration: none;
-  font-weight: 700;
+.app-title {
+  color: var(--gold);
+  font-size: 0.95rem;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.02em;
 }
-.back-link:hover { color: var(--gold); }
 
 .fruits-row {
   display: flex;
