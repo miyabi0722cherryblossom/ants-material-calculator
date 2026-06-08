@@ -20,7 +20,10 @@ const ITEMS = [
   { id: 15, image: "images/item-15.png", name: "No.15", qty:     1, maxEx:  1, price:  2500 },
   { id: 16, image: "images/item-16.png", name: "No.16", qty:    40, maxEx:  4, price:  5000 },
   { id: 17, image: "images/item-17.png", name: "No.17", qty: 100000, maxEx: 20, price:   200 },
-  { id: 18, image: "images/item-18.png", name: "No.18", qty:   100, maxEx: 10, price:  1250 },
+  { id: 18, image: "images/item-18.png", name: "No.18", qty:   100, maxEx:  10, price:  1250 },
+  { id: 19, image: "images/item-19.png", name: "No.19", qty:     1, maxEx:  20, price:   125 },
+  { id: 20, image: "images/item-20.png", name: "No.20", qty:     1, maxEx: 100, price:   150 },
+  { id: 21, image: "images/item-21.png", name: "No.21", qty:     1, maxEx: 500, price:     1 },
 ];
 
 /* ----- 状態 ----- */
