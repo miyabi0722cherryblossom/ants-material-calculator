@@ -3,15 +3,15 @@
    ============================================================= */
 
 const ITEMS = [
-  { id: 1, image: "images/item-essence-of-life.png", name: "生命のエッセンス", qty: 1, maxEx: 4, price: 4000 },
-  { id: 2, emoji: "🧬", name: "上級変異素材チェスト",     qty:  20, maxEx: 1,  price: 10000 },
-  { id: 3, emoji: "🐚", name: "異種の殻",                 qty: 100, maxEx: 1,  price: 10000 },
-  { id: 4, emoji: "🥚", name: "橙色の昆虫の卵",           qty: 200, maxEx: 5,  price:  2000 },
-  { id: 5, emoji: "💧", name: "月光エッセンス",           qty: 200, maxEx: 2,  price: 10000 },
-  { id: 6, emoji: "💎", name: "強化樹脂",                 qty:   1, maxEx: 10, price:  1000 },
-  { id: 7, emoji: "🌕", name: "異種花蜜",                 qty:  15, maxEx: 1,  price: 20000 },
-  { id: 8, emoji: "⭐", name: "シーズンエッグ",           qty:   1, maxEx: 1,  price:  2500 },
-  { id: 9, emoji: "🪨", name: "宝の粘土",                 qty:  40, maxEx: 4,  price:  5000 },
+  { id: 1, image: "images/item-01.png", name: "No.1",  qty:   1, maxEx:  1, price:  3000 },
+  { id: 2, image: "images/item-02.png", name: "No.2",  qty: 500, maxEx: 10, price:   100 },
+  { id: 3, image: "images/item-03.png", name: "No.3",  qty:  10, maxEx:  2, price:  1500 },
+  { id: 4, image: "images/item-04.png", name: "No.4",  qty:   1, maxEx:  4, price:  4000 },
+  { id: 5, image: "images/item-05.png", name: "No.5",  qty:   1, maxEx:  1, price:  3750 },
+  { id: 6, image: "images/item-06.png", name: "No.6",  qty:  30, maxEx:  2, price:  1500 },
+  { id: 7, image: "images/item-07.png", name: "No.7",  qty: 100, maxEx:  1, price:  1500 },
+  { id: 8, image: "images/item-08.png", name: "No.8",  qty:  10, maxEx:  1, price:  1500 },
+  { id: 9, image: "images/item-09.png", name: "No.9",  qty:  20, maxEx:  1, price: 10000 },
 ];
 
 /* ----- 状態 ----- */
