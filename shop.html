@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>シーズンショップ計算機 | ザ・アンツ攻略</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="shop.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <div class="container">
+
+    <header class="page-header">
+      <p class="eyebrow">ザ・アンツ攻略ツール</p>
+      <h1 class="title">🛒 シーズンショップ<br>シミュレーター</h1>
+      <p class="lead">シーズンポイントで何を買うか計画しよう。</p>
+    </header>
+
+    <nav class="page-nav">
+      <a href="index.html" class="nav-link">← 素材計算機へ</a>
+    </nav>
+
+    <section class="card">
+      <h2 class="card-title">所持シーズンポイント</h2>
+      <div class="field">
+        <label for="budget">シーズンポイント</label>
+        <input
+          type="number"
+          id="budget"
+          inputmode="numeric"
+          min="0"
+          value="29050"
+        />
+        <p class="hint">週の獲得量目安：約29,050（Evolution Fungi Lv.21時）</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="card-title">アイテム一覧</h2>
+      <p class="hint shop-hint">価格は実際のゲームに合わせて変更できます</p>
+      <div id="itemList"></div>
+    </section>
+
+    <!-- 常時表示される合計バー -->
+    <div class="summary-bar" id="summaryBar">
+      <div class="summary-bar-inner">
+        <div class="summary-col">
+          <span class="summary-bar-label">合計</span>
+          <span class="summary-bar-value" id="summaryTotal">0 pt</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-col" id="summaryRemainCol" hidden>
+          <span class="summary-bar-label" id="summaryRemainLabel">残り</span>
+          <span class="summary-bar-value" id="summaryRemain"></span>
+        </div>
+      </div>
+      <p class="budget-warning" id="overWarning" hidden>⚠️ 予算を超えています！</p>
+    </div>
+
+    <!-- 合計バーの高さ分の余白 -->
+    <div class="summary-bar-spacer"></div>
+
+    <footer class="page-footer">
+      <p>ザ・アンツ攻略サイト</p>
+    </footer>
+
+  </div>
+
+  <script src="shop.js"></script>
+</body>
+</html>
