@@ -11,7 +11,16 @@ const ITEMS = [
   { id: 6, image: "images/item-06.png", name: "No.6",  qty:  30, maxEx:  2, price:  1500 },
   { id: 7, image: "images/item-07.png", name: "No.7",  qty: 100, maxEx:  1, price:  1500 },
   { id: 8, image: "images/item-08.png", name: "No.8",  qty:  10, maxEx:  1, price:  1500 },
-  { id: 9, image: "images/item-09.png", name: "No.9",  qty:  20, maxEx:  1, price: 10000 },
+  { id: 9,  image: "images/item-09.png", name: "No.9",  qty:    20, maxEx:  1, price: 10000 },
+  { id: 10, image: "images/item-10.png", name: "No.10", qty:   100, maxEx:  1, price: 10000 },
+  { id: 11, image: "images/item-11.png", name: "No.11", qty:   200, maxEx:  5, price:  2000 },
+  { id: 12, image: "images/item-12.png", name: "No.12", qty:   200, maxEx:  2, price: 10000 },
+  { id: 13, image: "images/item-13.png", name: "No.13", qty:     1, maxEx: 10, price:  1000 },
+  { id: 14, image: "images/item-14.png", name: "No.14", qty:    15, maxEx:  1, price: 20000 },
+  { id: 15, image: "images/item-15.png", name: "No.15", qty:     1, maxEx:  1, price:  2500 },
+  { id: 16, image: "images/item-16.png", name: "No.16", qty:    40, maxEx:  4, price:  5000 },
+  { id: 17, image: "images/item-17.png", name: "No.17", qty: 100000, maxEx: 20, price:   200 },
+  { id: 18, image: "images/item-18.png", name: "No.18", qty:   100, maxEx: 10, price:  1250 },
 ];
 
 /* ----- 状態 ----- */
